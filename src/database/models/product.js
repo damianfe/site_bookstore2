@@ -1,60 +1,29 @@
+'use strict';
+const {
+  Model
+} = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    let alias = "Product";
-    
-    let cols = {
-       id:{
-           type:DataTypes.INTEGER.UNSIGNED,
-           primarykey:true,
-           allowNull:false,
-           autoIncrement:true
-       },
-       name:{
-           type:DataTypes.VARCHAR(100),
-           allowNull:false,
-
-       },
-       author_id:{
-           type:DataTypes.INTEGER,
-           allowNull:false
-       },
-       description:{
-           type:DataTypes.TEXT,
-           allowNull:false,
-
-       },
-       price:{
-           type:DataTypes.INTEGER,
-           allowNull:false
-
-       },
-       category_id:{
-           type:DataTypes.INTEGER,
-           allowNull:false
-       },
-       images_id:{
-           type:DataTypes.INTEGER,
-           allowNull:false,
-       },
-       genres_id:{
-           type:DataTypes.INTEGER,
-           allowNull:false
-       }
+  class Product extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
     }
-
-    let config = {
-        tableName: "products",
-        timestamps: false,
-    }
-
-    const Product = sequelize.define(alias, cols, config)
-
-    Product.associate = function(models) {
-        Product.belongsTo(models.Category, {
-            as: "category",
-            foreignKey: "category_id"
-        })
-        
-    }
-
-    return Product;
-}
+  }
+  Product.init({
+    name: DataTypes.STRING,
+    author: DataTypes.STRING,
+    price: DataTypes.STRING,
+    category_id: DataTypes.INTEGER,
+    description: DataTypes.STRING,
+    genres_id: DataTypes.INTEGER,
+    images_id: DataTypes.INTEGER
+  }, {
+    sequelize,
+    modelName: 'Product',
+  });
+  return Product;
+};

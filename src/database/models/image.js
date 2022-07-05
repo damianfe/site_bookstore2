@@ -1,28 +1,23 @@
-module.exports=(sequelize, DataTypes) => {
-    let alias ="image";
-    
-    let cols ={
-       id:{
-           type:DataTypes.INTEGER,
-           primarykey:true,
-           allowNull:false,
-           autoIncrement:true
-       },
-       name:{
-           type:DataTypes.VARCHAR(100),
-           allowNull:false
-       }
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class Image extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
     }
-
-    let config ={
-        tableName:"images",
-        timestamps:false,
-    }
-    const Image = sequelize.define(alias, cols, config)
-    Image.associate = function(models){
-        
-    }
-    return  Image;
-
-
-}
+  }
+  Image.init({
+    name: DataTypes.STRING
+  }, {
+    sequelize,
+    modelName: 'Image',
+  });
+  return Image;
+};
